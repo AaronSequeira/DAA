@@ -3,7 +3,7 @@
 #include<algorithm>
 using namespace std;
 
-void CoinChangeDynamic(vector<int> den, int n, int sum){
+void CoinChangeDynamic(vector<int> coin, int n, int sum){
     vector<vector<int>> d(n, vector<int>(sum+1));
     
     for(int i = 0; i < n; i++){
@@ -11,10 +11,10 @@ void CoinChangeDynamic(vector<int> den, int n, int sum){
             if (j == 0){
                 d[i][0] = 1;
             } 
-            else if (den[i] <= j){
-                d[i][j] = d[i][j - den[i]] +  (i > 0 ? d[i-1][j] : 0);
+            else if (coin[i] <= j){
+                d[i][j] = d[i][j - coin[i]] + (i > 0 ? d[i-1][j] : 0);
             }
-            else if(den[i] > j)
+            else if(coin[i] > j)
                 d[i][j] = (i > 0 ? d[i-1][j] : 0);
         }
     }
@@ -33,15 +33,15 @@ void CoinChangeDynamic(vector<int> den, int n, int sum){
 
 int main(){
     int n, sum = 0;
-    cout << "enter no of denominations: ";
+    cout << "enter no of coin: ";
     cin >> n;
-    vector<int> den(n);
-    cout << "enter denominations: " << endl;;
+    vector<int> coin(n);
+    cout << "enter coins: " << endl;;
     for (int i = 0; i < n; i++){
-        cin >> den[i];
+        cin >> coin[i];
     }
     cout << "enter sum: ";
     cin >> sum;
-    CoinChangeDynamic(den, n, sum);
+    CoinChangeDynamic(coin, n, sum);
     return 0;
 }
